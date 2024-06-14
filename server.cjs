@@ -1,12 +1,16 @@
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
+const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
 const PORT = process.env.PORT || 3000;
+
+// Enable CORS for all origins
+app.use(cors());
 
 // Handle a new connection
 io.on('connection', (socket) => {
@@ -63,7 +67,6 @@ function getUsersInRoom(room) {
     }
     return users;
 }
-
 
 server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
